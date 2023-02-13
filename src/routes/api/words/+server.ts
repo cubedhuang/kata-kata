@@ -1,4 +1,4 @@
-import { text } from '@sveltejs/kit';
+import { json } from '@sveltejs/kit';
 import { parse } from 'csv-parse/sync';
 
 import type { Word } from '$lib/types';
@@ -51,5 +51,5 @@ export const GET = (async ({ fetch, setHeaders }) => {
 		'Cache-Control': 'max-age=60, public'
 	});
 
-	return text(JSON.stringify(words, null, 2));
+	return json(words);
 }) satisfies RequestHandler;
