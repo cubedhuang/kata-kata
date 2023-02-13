@@ -1,8 +1,6 @@
 import parser from 'papaparse';
 
-import type { PageLoad } from './$types';
-
-import type { Word } from '$lib/types';
+import type { Word } from './types';
 
 const SHEET =
 	'https://docs.google.com/spreadsheets/d/e/2PACX-1vR-xdwfzK86O86JlDqrKUNWZCUuMq5fdu5os7EB79VfY9NiTY6Q5_a_uaJ07YIOFeaulTmYfhz77Nnt/pub?gid=0&single=true&output=csv';
@@ -18,7 +16,13 @@ const keys = [
 	'sourceDefinition'
 ] as const;
 
-export const load = (async ({ fetch, setHeaders }) => {
+export async function getWords(
+	fetch: (
+		input: RequestInfo | URL,
+		init?: RequestInit | undefined
+	) => Promise<Response>,
+	setHeaders: (headers: Record<string, string>) => void
+) {
 	const response = await fetch(SHEET).then(res => res.text());
 
 	const csv = parser.parse(response).data as string[][];
@@ -49,5 +53,5 @@ export const load = (async ({ fetch, setHeaders }) => {
 		'Cache-Control': 'max-age=60, public'
 	});
 
-	return { words };
-}) satisfies PageLoad;
+	return words;
+}

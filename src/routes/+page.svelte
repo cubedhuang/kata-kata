@@ -37,6 +37,10 @@
 	let selectedWord: Word | null = null;
 </script>
 
+<svelte:head>
+	<title>kata kata</title>
+</svelte:head>
+
 <h1 class="mt-12 font-bold text-4xl">kata kata</h1>
 
 <p class="mt-4">
