@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	html,
+	body {
+		scrollbar-gutter: stable;
+	}
+}
+
+@layer components {
+	.box {
+		@apply bg-white border border-gray-200 rounded-lg;
+	}
+
+	.interactable {
+		@apply box outline-none focus:ring focus:ring-blue-200 transition;
+	}
+
+	.clickable {
+		@apply interactable cursor-pointer hover:bg-gray-50;
+	}
+
+	.faded {
+		@apply text-gray-500;
+	}
+}
