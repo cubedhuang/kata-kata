@@ -1,6 +1,6 @@
-import type { PageLoad } from './$types';
+import parser from 'papaparse';
 
-import { parse } from 'csv-parse/sync';
+import type { PageLoad } from './$types';
 
 import type { Word } from '$lib/types';
 
@@ -21,9 +21,7 @@ const keys = [
 export const load = (async ({ fetch, setHeaders }) => {
 	const response = await fetch(SHEET).then(res => res.text());
 
-	const csv = parse(response, {
-		skip_empty_lines: true
-	}) as string[][];
+	const csv = parser.parse(response).data as string[][];
 
 	csv.shift();
 	csv.shift();

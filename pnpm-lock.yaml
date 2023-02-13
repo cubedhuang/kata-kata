@@ -3,13 +3,14 @@ lockfileVersion: 5.4
 specifiers:
   '@sveltejs/adapter-auto': ^1.0.3
   '@sveltejs/kit': ^1.5.6
+  '@types/papaparse': ^5.3.7
   '@typescript-eslint/eslint-plugin': ^5.51.0
   '@typescript-eslint/parser': ^5.51.0
   autoprefixer: ^10.4.13
-  csv-parse: ^5.3.5
   eslint: ^8.34.0
   eslint-config-prettier: ^8.6.0
   eslint-plugin-svelte3: ^4.0.0
+  papaparse: ^5.3.2
   postcss: ^8.4.21
   prettier: ^2.8.4
   prettier-plugin-svelte: ^2.9.0
@@ -21,11 +22,12 @@ specifiers:
   vite: ^4.1.1
 
 dependencies:
-  csv-parse: 5.3.5
+  papaparse: 5.3.2
 
 devDependencies:
   '@sveltejs/adapter-auto': 1.0.3_@sveltejs+kit@1.5.6
   '@sveltejs/kit': 1.5.6_svelte@3.55.1+vite@4.1.1
+  '@types/papaparse': 5.3.7
   '@typescript-eslint/eslint-plugin': 5.51.0_z4swst3wuuqk4hlme4ajzslgh4
   '@typescript-eslint/parser': 5.51.0_7kw3g6rralp5ps6mg3uyzz6azm
   autoprefixer: 10.4.13_postcss@8.4.21
@@ -388,6 +390,12 @@ packages:
     resolution: {integrity: sha512-gC3TazRzGoOnoKAhUx+Q0t8S9Tzs74z7m0ipwGpSqQrleP14hKxP4/JUeEQcD3W1/aIpnWl8pHowI7WokuZpXg==}
     dev: true
 
+  /@types/papaparse/5.3.7:
+    resolution: {integrity: sha512-f2HKmlnPdCvS0WI33WtCs5GD7X1cxzzS/aduaxSu3I7TbhWlENjSPs6z5TaB9K0J+BH1jbmqTaM+ja5puis4wg==}
+    dependencies:
+      '@types/node': 18.13.0
+    dev: true
+
   /@types/pug/2.0.6:
     resolution: {integrity: sha512-SnHmG9wN1UVmagJOnyo/qkk0Z7gejYxOYYmaAwr5u2yFYfsupN3sg10kyzN8Hep/2zbHxCnsumxOoRIRMBwKCg==}
     dev: true
@@ -739,10 +747,6 @@ packages:
     engines: {node: '>=4'}
     hasBin: true
     dev: true
-
-  /csv-parse/5.3.5:
-    resolution: {integrity: sha512-8O5KTIRtwmtD3+EVfW6BCgbwZqJbhTYsQZry12F1TP5RUp0sD9tp1UnCWic3n0mLOhzeocYaCZNYxOGSg3dmmQ==}
-    dev: false
 
   /debug/4.3.4:
     resolution: {integrity: sha512-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX+7G/vCNNhehwxfkQ==}
@@ -1417,6 +1421,10 @@ packages:
     dependencies:
       p-limit: 3.1.0
     dev: true
+
+  /papaparse/5.3.2:
+    resolution: {integrity: sha512-6dNZu0Ki+gyV0eBsFKJhYr+MdQYAzFUGlBMNj3GNrmHxmz1lfRa24CjFObPXtjcetlOv5Ad299MhIK0znp3afw==}
+    dev: false
 
   /parent-module/1.0.1:
     resolution: {integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==}
