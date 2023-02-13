@@ -1,8 +1,8 @@
-import { json } from '@sveltejs/kit';
+import type { PageLoad } from './$types';
+
 import { parse } from 'csv-parse/sync';
 
 import type { Word } from '$lib/types';
-import type { RequestHandler } from './$types';
 
 const SHEET =
 	'https://docs.google.com/spreadsheets/d/e/2PACX-1vR-xdwfzK86O86JlDqrKUNWZCUuMq5fdu5os7EB79VfY9NiTY6Q5_a_uaJ07YIOFeaulTmYfhz77Nnt/pub?gid=0&single=true&output=csv';
@@ -18,7 +18,7 @@ const keys = [
 	'sourceDefinition'
 ] as const;
 
-export const GET = (async ({ fetch, setHeaders }) => {
+export const load = (async ({ fetch, setHeaders }) => {
 	const response = await fetch(SHEET).then(res => res.text());
 
 	const csv = parse(response, {
@@ -51,5 +51,5 @@ export const GET = (async ({ fetch, setHeaders }) => {
 		'Cache-Control': 'max-age=60, public'
 	});
 
-	return json(words);
-}) satisfies RequestHandler;
+	return { words };
+}) satisfies PageLoad;
