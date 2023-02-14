@@ -73,7 +73,7 @@
 
 <div class="mt-4">
 	{#each [...filteredCategories.entries()] as [name, words] (name)}
-		<div class="faded mt-8 mb-4 font-bold flex gap-2 items-center">
+		<div class="mt-8 mb-4 font-bold flex gap-2 items-center">
 			<div class="w-full h-px bg-gray-200" />
 			<h2 class="shrink-0">
 				{name}
