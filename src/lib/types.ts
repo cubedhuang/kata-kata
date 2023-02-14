@@ -14,4 +14,6 @@ export interface Word {
 	sourceWord?: string;
 	sourceTransliteration?: string;
 	sourceDefinition?: string;
+
+	category: string;
 }

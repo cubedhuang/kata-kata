@@ -32,13 +32,21 @@ export async function getWords(
 	csv.shift();
 
 	const words = [];
+	let currentCategory = '';
 
 	for (const row of csv) {
 		row.shift();
 
 		if (!row[0]) continue;
 
-		const word: Word = {} as Word;
+		if (!row[1]) {
+			currentCategory = row[0];
+			continue;
+		}
+
+		const word = {
+			category: currentCategory
+		} as Word;
 
 		for (const [i, cell] of row.entries()) {
 			if (!cell) continue;

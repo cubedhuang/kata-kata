@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
 
+	import { createCategories } from '$lib/createCategories';
 	import type { Word } from '$lib/types';
 	import type { PageData } from './$types';
 
@@ -33,6 +34,8 @@
 
 		return word[key]!.toLowerCase().includes(search.toLowerCase());
 	});
+
+	$: filteredCategories = createCategories(filteredWords);
 
 	let selectedWord: Word | null = null;
 </script>
@@ -68,38 +71,50 @@
 	/>
 </p>
 
-<div class="mt-4 grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-	{#each filteredWords as word}
-		<button
-			class="flex flex-col text-left p-4 clickable"
-			on:click={() => {
-				if (selectedWord === word) {
-					selectedWord = null;
-				} else {
-					selectedWord = word;
-				}
-			}}
-		>
-			<h2 class="font-bold text-xl">{word.word}</h2>
-			<p class="faded">{word.partOfSpeech}</p>
-			<p>{word.meaning}</p>
+<div class="mt-4">
+	{#each [...filteredCategories.entries()] as [name, words] (name)}
+		<div class="faded mt-8 mb-4 font-bold flex gap-2 items-center">
+			<div class="w-full h-px bg-gray-200" />
+			<h2 class="shrink-0">
+				{name}
+			</h2>
+			<div class="w-full h-px bg-gray-200" />
+		</div>
 
-			{#if detailed}
-				<p class="mt-2">
-					{word.sourceLanguage}
-					{#if word.sourceWord}
-						{word.sourceWord}
+		<div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+			{#each words as word (word.word)}
+				<button
+					class="flex flex-col text-left p-4 clickable"
+					on:click={() => {
+						if (selectedWord === word) {
+							selectedWord = null;
+						} else {
+							selectedWord = word;
+						}
+					}}
+				>
+					<h2 class="font-bold text-xl">{word.word}</h2>
+					<p class="faded">{word.partOfSpeech}</p>
+					<p>{word.meaning}</p>
+
+					{#if detailed}
+						<p class="mt-2">
+							{word.sourceLanguage}
+							{#if word.sourceWord}
+								{word.sourceWord}
+							{/if}
+							{#if word.sourceTransliteration}
+								{word.sourceTransliteration}
+							{/if}
+							{#if word.sourceDefinition}
+								'{word.sourceDefinition}'
+							{/if}
+						</p>
+						<p class="mt-2 italic">{word.creator}</p>
 					{/if}
-					{#if word.sourceTransliteration}
-						{word.sourceTransliteration}
-					{/if}
-					{#if word.sourceDefinition}
-						'{word.sourceDefinition}'
-					{/if}
-				</p>
-				<p class="mt-2 italic">{word.creator}</p>
-			{/if}
-		</button>
+				</button>
+			{/each}
+		</div>
 	{/each}
 </div>
 

@@ -9,7 +9,5 @@ export const load = (async ({ fetch, params, setHeaders }) => {
 
 	if (!word) throw error(404, 'Word not found');
 
-	return {
-		word
-	};
+	return { word };
 }) satisfies PageServerLoad;
