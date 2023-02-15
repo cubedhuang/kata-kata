@@ -4,6 +4,7 @@
 	import { createCategories } from '$lib/createCategories';
 	import type { Word } from '$lib/types';
 	import type { PageData } from './$types';
+	import Separator from '$lib/components/Separator.svelte';
 
 	export let data: PageData;
 
@@ -41,12 +42,12 @@
 </script>
 
 <svelte:head>
-	<title>kata kata</title>
+	<title>kata nemune</title>
 </svelte:head>
 
-<h1 class="mt-12 font-bold text-4xl">kata kata</h1>
+<h1 class="mt-12 font-bold text-4xl">kata nemune</h1>
 
-<p class="mt-4">
+<p class="mt-4 flex gap-2">
 	<select bind:value={searchMode} class="px-2 py-1 interactable cursor-pointer">
 		{#each Object.values(SearchMode) as mode}
 			<option value={mode}>{mode}</option>
@@ -54,8 +55,10 @@
 	</select>
 
 	<button class="px-2 py-1 clickable" on:click={() => (detailed = !detailed)}>
-		{detailed ? 'wi' : 'sana'}
+		{detailed ? 'wi' : 'piki'}
 	</button>
+
+	<a href="/aka" class="ml-auto px-2 py-1 clickable">aka</a>
 </p>
 
 <p class="mt-2 faded">
@@ -73,13 +76,9 @@
 
 <div class="mt-4">
 	{#each [...filteredCategories.entries()] as [name, words] (name)}
-		<div class="mt-8 mb-4 font-bold flex gap-2 items-center">
-			<div class="w-full h-px bg-gray-200" />
-			<h2 class="shrink-0">
-				{name}
-			</h2>
-			<div class="w-full h-px bg-gray-200" />
-		</div>
+		<Separator>
+			{name}
+		</Separator>
 
 		<div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
 			{#each words as word (word.word)}
