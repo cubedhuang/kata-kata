@@ -17,11 +17,7 @@
 
 		return acc;
 	}, new Map<string, string[]>());
-
-	$: sortedLanguages = [...languageGroups.entries()].sort(([a], [b]) =>
-		a.localeCompare(b)
-	);
 </script>
 
 <Separator>languages</Separator>
-<Table items={sortedLanguages} />
+<Table items={languageGroups} />

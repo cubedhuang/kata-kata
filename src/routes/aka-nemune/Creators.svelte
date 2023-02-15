@@ -19,11 +19,7 @@
 
 		return acc;
 	}, new Map<string, string[]>());
-
-	$: sortedNames = [...creatorGroups.entries()].sort(([a], [b]) =>
-		a.localeCompare(b)
-	);
 </script>
 
 <Separator>creators (some overlap)</Separator>
-<Table items={sortedNames} />
+<Table items={creatorGroups} />

@@ -17,11 +17,7 @@
 
 		return acc;
 	}, new Map<string, string[]>());
-
-	$: startingLetters = [...startingLetterGroups.entries()].sort(([a], [b]) =>
-		a.localeCompare(b)
-	);
 </script>
 
 <Separator>starting letters</Separator>
-<Table items={startingLetters} />
+<Table items={startingLetterGroups} />
