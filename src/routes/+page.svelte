@@ -118,37 +118,71 @@
 </div>
 
 {#if selectedWord}
-	{#key selectedWord.word}
-		<div
-			transition:fly={{ y: 24, duration: 300 }}
-			class="fixed p-6 bottom-0 left-0 right-0 border-t border-gray-200
-				sm:w-96 sm:left-auto sm:bottom-4 sm:right-4 sm:box shadow-lg
-				bg-white"
-		>
-			<h2 class="font-bold text-2xl">{selectedWord.word}</h2>
-			<p class="faded">{selectedWord.partOfSpeech}</p>
-			<p>{selectedWord.meaning}</p>
-
-			<p class="mt-2">
-				{selectedWord.sourceLanguage}
-				{#if selectedWord.sourceWord}
-					{selectedWord.sourceWord}
-				{/if}
-				{#if selectedWord.sourceTransliteration}
-					{selectedWord.sourceTransliteration}
-				{/if}
-				{#if selectedWord.sourceDefinition}
-					'{selectedWord.sourceDefinition}'
-				{/if}
-			</p>
-			<p class="mt-2 italic">{selectedWord.creator}</p>
-
-			<button
-				class="mt-4 px-2 py-1 clickable"
-				on:click={() => (selectedWord = null)}
+	<div
+		transition:fly|local={{ y: 24, duration: 300 }}
+		class="fixed bottom-0 left-0 right-0"
+	>
+		{#key selectedWord.word}
+			<div
+				transition:fly|local={{ y: 24, duration: 300 }}
+				class="fixed p-6 bottom-0 left-0 right-0 border-t border-gray-200
+					sm:w-96 sm:left-auto sm:bottom-4 sm:right-4 sm:box shadow-lg
+					bg-white"
 			>
-				Close
-			</button>
-		</div>
-	{/key}
+				<div class="flex">
+					<h2 class="mr-auto font-bold text-2xl">{selectedWord.word}</h2>
+
+					<a href="/{selectedWord.word}" class="mr-2 p-1 clickable">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke-width="1.5"
+							stroke="currentColor"
+							class="w-6 h-6"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+							/>
+						</svg>
+					</a>
+
+					<button class="p-1 clickable" on:click={() => (selectedWord = null)}>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke-width="1.5"
+							stroke="currentColor"
+							class="w-6 h-6"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								d="M6 18L18 6M6 6l12 12"
+							/>
+						</svg>
+					</button>
+				</div>
+				<p class="faded">{selectedWord.partOfSpeech}</p>
+				<p>{selectedWord.meaning}</p>
+
+				<p class="mt-2">
+					{selectedWord.sourceLanguage}
+					{#if selectedWord.sourceWord}
+						{selectedWord.sourceWord}
+					{/if}
+					{#if selectedWord.sourceTransliteration}
+						{selectedWord.sourceTransliteration}
+					{/if}
+					{#if selectedWord.sourceDefinition}
+						'{selectedWord.sourceDefinition}'
+					{/if}
+				</p>
+				<p class="mt-2 italic">{selectedWord.creator}</p>
+			</div>
+		{/key}
+	</div>
 {/if}

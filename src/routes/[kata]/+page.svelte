@@ -14,7 +14,11 @@
 	<meta property="og:description" content={word.meaning} />
 </svelte:head>
 
-<h1 class="mt-12 font-bold text-4xl">{word.word}</h1>
+<p class="mt-8">
+	<a href="/" class="inline-block px-2 py-1 clickable">eta</a>
+</p>
+
+<h1 class="mt-8 font-bold text-4xl">{word.word}</h1>
 
 <p class="mt-4 faded">{word.partOfSpeech}</p>
 <p class="mt-2">{word.meaning}</p>
