@@ -34,7 +34,7 @@
 				{words.length}
 			</td>
 
-			<td class="pl-2 py-1 border-l">
+			<td class="pl-2 py-1 border-l align-text-top">
 				<ul class="flex flex-wrap gap-x-2">
 					{#each words as word}
 						<li>
