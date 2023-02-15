@@ -120,12 +120,12 @@
 {#if selectedWord}
 	<div
 		transition:fly|local={{ y: 24, duration: 300 }}
-		class="fixed bottom-0 left-0 right-0"
+		class="z-20 fixed bottom-0 right-0 w-full"
 	>
 		{#key selectedWord.word}
 			<div
 				transition:fly|local={{ y: 24, duration: 300 }}
-				class="fixed p-6 bottom-0 left-0 right-0 border-t border-gray-200
+				class="absolute p-6 bottom-0 left-0 right-0 border-t border-gray-200
 					sm:w-96 sm:left-auto sm:bottom-4 sm:right-4 sm:box shadow-lg
 					bg-white"
 			>
