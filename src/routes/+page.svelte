@@ -58,7 +58,7 @@
 		{detailed ? 'wi' : 'piki'}
 	</button>
 
-	<a href="/aka" class="ml-auto px-2 py-1 clickable">aka</a>
+	<a href="/aka-nemune" class="ml-auto px-2 py-1 clickable">aka</a>
 </p>
 
 <p class="mt-2 faded">
