@@ -31,21 +31,13 @@ function parseOldWords(csv: string) {
 	rawData.shift();
 
 	const words = [];
-	let currentCategory = '';
 
 	for (const row of rawData) {
 		row.shift();
 
-		if (!row[0]) continue;
+		if (!row[0] || !row[1]) continue;
 
-		if (!row[1]) {
-			currentCategory = normalizeString(row[0]);
-			continue;
-		}
-
-		const word = {
-			category: currentCategory
-		} as Word;
+		const word = {} as Word;
 
 		for (const [i, cell] of row.entries()) {
 			if (!cell) continue;
@@ -162,15 +154,12 @@ function patchWords(words: Word[], oldWords: Word[]) {
 		if (!wordsMap.has(word)) continue;
 
 		const newWord = wordsMap.get(word)!;
-		newWord.category = oldWord.category;
 
 		newWord.definitions ??= oldWord.definitions;
 		newWord.source ??= oldWord.source;
 	}
 
 	for (const [word, newWord] of wordsMap) {
-		newWord.category ??= 'uncategorized';
-
 		if (!newWord.definitions) {
 			wordsMap.delete(word);
 		}

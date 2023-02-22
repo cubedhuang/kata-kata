@@ -16,6 +16,4 @@ export interface Word {
 
 	definitions: Definition[];
 	source: Source;
-
-	category: string;
 }
