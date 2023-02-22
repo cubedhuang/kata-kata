@@ -7,7 +7,7 @@
 	export let words: Word[];
 
 	$: creatorGroups = words.reduce((acc, word) => {
-		const creators = word.creator.split('&').map(c => c.trim());
+		const creators = word.source.creator.split('&').map(c => c.trim());
 
 		for (const creator of creators) {
 			if (acc.has(creator)) {

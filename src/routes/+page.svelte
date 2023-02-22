@@ -1,12 +1,16 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
 
-	import { createCategories } from '$lib/createCategories';
 	import type { Word } from '$lib/types';
 	import type { PageData } from './$types';
-	import Separator from '$lib/components/Separator.svelte';
+
+	import WordDetails from '$lib/components/WordDetails.svelte';
 
 	export let data: PageData;
+
+	function fix(text: string) {
+		return text.toLowerCase().trim().normalize();
+	}
 
 	enum SearchMode {
 		Word = 'kata',
@@ -14,13 +18,6 @@
 		PartOfSpeech = 'part of speech',
 		Language = 'language'
 	}
-
-	const keys: Record<SearchMode, keyof Word> = {
-		[SearchMode.Word]: 'word',
-		[SearchMode.Meaning]: 'meaning',
-		[SearchMode.PartOfSpeech]: 'partOfSpeech',
-		[SearchMode.Language]: 'sourceLanguage'
-	};
 
 	$: words = data.words;
 
@@ -31,12 +28,21 @@
 	$: filteredWords = words.filter(word => {
 		if (search === '') return true;
 
-		const key = keys[searchMode];
-
-		return word[key]!.toLowerCase().includes(search.toLowerCase());
+		switch (searchMode) {
+			case SearchMode.Word:
+				return fix(word.word).includes(fix(search));
+			case SearchMode.Meaning:
+				return fix(word.definitions.map(d => d.meaning).join('; ')).includes(
+					fix(search)
+				);
+			case SearchMode.PartOfSpeech:
+				return fix(
+					word.definitions.map(d => d.partOfSpeech).join(' ')
+				).includes(fix(search));
+			case SearchMode.Language:
+				return fix(word.source.language).includes(fix(search));
+		}
 	});
-
-	$: filteredCategories = createCategories(filteredWords);
 
 	let selectedWord: Word | null = null;
 </script>
@@ -74,46 +80,27 @@
 	/>
 </p>
 
-<div class="mt-4">
-	{#each [...filteredCategories.entries()] as [name, words] (name)}
-		<Separator>
-			{name}
-		</Separator>
+<p class="mt-4 faded">
+	A word marked as <i>content word</i> indicates that the definition is not on the
+	new word sheet.
+</p>
 
-		<div class="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-			{#each words as word (word.word)}
-				<button
-					class="flex flex-col text-left p-4 clickable"
-					on:click={() => {
-						if (selectedWord === word) {
-							selectedWord = null;
-						} else {
-							selectedWord = word;
-						}
-					}}
-				>
-					<h2 class="font-bold text-xl">{word.word}</h2>
-					<p class="faded">{word.partOfSpeech}</p>
-					<p>{word.meaning}</p>
+<div class="mt-4 grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+	{#each filteredWords as word (word.word)}
+		<button
+			class="flex flex-col text-left p-4 clickable"
+			on:click={() => {
+				if (selectedWord === word) {
+					selectedWord = null;
+				} else {
+					selectedWord = word;
+				}
+			}}
+		>
+			<h2 class="font-bold text-xl" class:-mb-2={detailed}>{word.word}</h2>
 
-					{#if detailed}
-						<p class="mt-2">
-							{word.sourceLanguage}
-							{#if word.sourceWord}
-								{word.sourceWord}
-							{/if}
-							{#if word.sourceTransliteration}
-								{word.sourceTransliteration}
-							{/if}
-							{#if word.sourceDefinition}
-								'{word.sourceDefinition}'
-							{/if}
-						</p>
-						<p class="mt-2 italic">{word.creator}</p>
-					{/if}
-				</button>
-			{/each}
-		</div>
+			<WordDetails {word} {detailed} />
+		</button>
 	{/each}
 </div>
 
@@ -166,22 +153,8 @@
 						</svg>
 					</button>
 				</div>
-				<p class="faded">{selectedWord.partOfSpeech}</p>
-				<p>{selectedWord.meaning}</p>
 
-				<p class="mt-2">
-					{selectedWord.sourceLanguage}
-					{#if selectedWord.sourceWord}
-						{selectedWord.sourceWord}
-					{/if}
-					{#if selectedWord.sourceTransliteration}
-						{selectedWord.sourceTransliteration}
-					{/if}
-					{#if selectedWord.sourceDefinition}
-						'{selectedWord.sourceDefinition}'
-					{/if}
-				</p>
-				<p class="mt-2 italic">{selectedWord.creator}</p>
+				<WordDetails word={selectedWord} detailed />
 			</div>
 		{/key}
 	</div>

@@ -1,19 +1,21 @@
-export type PartOfSpeech =
-	| 'particle'
-	| 'semi-particle'
-	| 'pronoun'
-	| 'content word';
+export interface Definition {
+	partOfSpeech: string;
+	meaning: string;
+}
+
+export interface Source {
+	creator: string;
+	language: string;
+	word: string;
+	transliteration: string;
+	definition: string;
+}
 
 export interface Word {
 	word: string;
-	partOfSpeech: PartOfSpeech | string;
-	meaning: string;
-	creator: string;
 
-	sourceLanguage: string;
-	sourceWord?: string;
-	sourceTransliteration?: string;
-	sourceDefinition?: string;
+	definitions: Definition[];
+	source: Source;
 
 	category: string;
 }

@@ -3,6 +3,7 @@
 
 	import Creators from './Creators.svelte';
 	import Languages from './Languages.svelte';
+	import PartsOfSpeech from './PartsOfSpeech.svelte';
 	import StartingLetters from './StartingLetters.svelte';
 
 	export let data: PageData;
@@ -18,6 +19,7 @@
 	<a href="/" class="inline-block px-2 py-1 clickable">eta</a>
 </p>
 
+<PartsOfSpeech words={data.words} />
 <StartingLetters words={data.words} />
 <Creators words={data.words} />
 <Languages words={data.words} />
