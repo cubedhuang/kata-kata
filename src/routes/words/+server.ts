@@ -179,7 +179,7 @@ export const GET = (async ({ fetch, setHeaders }) => {
 		.then(words => patchWords(words, oldWords));
 
 	setHeaders({
-		'Cache-Control': 'max-age=60, public'
+		'Cache-Control': 'max-age=300, public'
 	});
 
 	return json(words);

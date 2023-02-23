@@ -3,7 +3,11 @@ import type { PageServerLoad } from './$types';
 import { getWords } from '$lib/getWords';
 import { error } from '@sveltejs/kit';
 
-export const load = (async ({ fetch, params }) => {
+export const load = (async ({ fetch, params, setHeaders }) => {
+	setHeaders({
+		'Cache-Control': 'max-age=300, public'
+	});
+
 	const words = await getWords(fetch);
 	const word = words.find(word => word.word === params.kata);
 
