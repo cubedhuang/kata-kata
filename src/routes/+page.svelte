@@ -61,7 +61,7 @@
 	</select>
 
 	<button class="px-2 py-1 clickable" on:click={() => (detailed = !detailed)}>
-		{detailed ? 'wi' : 'piki'}
+		{detailed ? 'wi ka' : 'wisala ka'}
 	</button>
 
 	<a href="/aka-nemune" class="ml-auto px-2 py-1 clickable">aka</a>
@@ -78,11 +78,6 @@
 		bind:value={search}
 		class="w-96 max-w-full px-3 py-2 interactable"
 	/>
-</p>
-
-<p class="mt-4 faded">
-	A word marked as <i>content word</i> indicates that the definition is not on the
-	new word sheet.
 </p>
 
 <div class="mt-4 grid sm:grid-cols-2 md:grid-cols-3 gap-4">
