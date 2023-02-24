@@ -1,38 +1,74 @@
-# create-svelte
+# kata nemune
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+This is an interactive, auto-updating dictionary from the constructed language [_nemune_](https://docs.google.com/document/d/1opPOAFG2INI5E8x38i97f8RP-ihJgho3CxhknMhaSVc/edit?usp=sharing). I blantantly stole most of the design from my other project, [nimi.li](https://nimi.li).
 
-## Creating a project
+You can use links like https://kata.nimi.li/nemune to link to a specific word, and these will embed in Discord or any other environment that supports Open Graph tags.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## kose
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+This fetches data from the _kata nemune_ Google Sheet to expose the list of words with an API at https://kata.nimi.li/words, which returns a JSON object:
 
-# create a new project in my-app
-npm create svelte@latest my-app
+```json
+[
+	{
+		"word": "te",
+		"definitions": [
+			{
+				"partOfSpeech": "particle",
+				"meaning": "(context clause: informs the following clause)"
+			}
+		],
+		"source": {
+			"creator": "kose Powa",
+			"language": "∅"
+		}
+	},
+	{
+		"word": "akani",
+		"definitions": [
+			{
+				"partOfSpeech": "adjective",
+				"meaning": "a myriad in number, a multitude in number; common, pervasive"
+			},
+			{
+				"partOfSpeech": "verb",
+				"meaning": "inundate, overwhelm"
+			}
+		],
+		"source": {
+			"creator": "kose Powa",
+			"language": "Gujarati",
+			"word": "અગણિત",
+			"transliteration": "agaṇit",
+			"definition": "innumerable, countless, immeasurable"
+		}
+	}
+	// kata akane...
+]
 ```
 
-## Developing
+### typescript definitions
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+```ts
+type Data = Word[];
 
-```bash
-npm run dev
+interface Word {
+	word: string;
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+	definitions: Definition[];
+	source: Source;
+}
+
+interface Definition {
+	partOfSpeech: string;
+	meaning: string;
+}
+
+interface Source {
+	creator: string;
+	language: string;
+	word?: string;
+	transliteration?: string;
+	definition?: string;
+}
 ```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.

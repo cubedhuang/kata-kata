@@ -6,9 +6,9 @@ export interface Definition {
 export interface Source {
 	creator: string;
 	language: string;
-	word: string;
-	transliteration: string;
-	definition: string;
+	word?: string;
+	transliteration?: string;
+	definition?: string;
 }
 
 export interface Word {
