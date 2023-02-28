@@ -13,6 +13,7 @@ export interface Source {
 
 export interface Word {
 	word: string;
+	wordi: string;
 
 	definitions: Definition[];
 	source: Source;

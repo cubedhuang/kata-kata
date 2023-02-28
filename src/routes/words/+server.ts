@@ -8,6 +8,7 @@ const SHEET =
 
 const keys = [
 	['word'],
+	['wordi'],
 	['definitions', 'partOfSpeech'],
 	['definitions', 'meaning'],
 	['source', 'creator'],
@@ -47,12 +48,14 @@ function parseWords(csv: string) {
 
 				const value = normalizeString(cell);
 
-				if (keys[i][0] === 'word') {
-					word.word = value;
+				const first = keys[i][0];
+
+				if (first === 'word' || first === 'wordi') {
+					word[first] = value;
 				} else {
 					const [key, subkey] = keys[i] as Exclude<
 						(typeof keys)[number],
-						readonly ['word']
+						readonly ['word'] | readonly ['wordi']
 					>;
 
 					if (key === 'definitions') {
