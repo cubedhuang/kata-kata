@@ -77,6 +77,7 @@ function parseWords(csv: string) {
 			words.push(word);
 		} else {
 			row.shift();
+			row.shift();
 
 			const word = words.at(-1)!;
 
