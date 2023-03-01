@@ -1,3 +1,11 @@
+export interface Word {
+	word: string;
+	wordi: string;
+
+	definitions: Definition[];
+	source: Source;
+}
+
 export interface Definition {
 	partOfSpeech: string;
 	meaning: string;
@@ -9,12 +17,4 @@ export interface Source {
 	word?: string;
 	transliteration?: string;
 	definition?: string;
-}
-
-export interface Word {
-	word: string;
-	wordi: string;
-
-	definitions: Definition[];
-	source: Source;
 }

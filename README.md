@@ -12,6 +12,7 @@ This fetches data from the _kata nemune_ Google Sheet to expose the list of word
 [
 	{
 		"word": "te",
+		"wordi": "te",
 		"definitions": [
 			{
 				"partOfSpeech": "particle",
@@ -24,23 +25,20 @@ This fetches data from the _kata nemune_ Google Sheet to expose the list of word
 		}
 	},
 	{
-		"word": "akani",
+		"word": "saji",
+		"wordi": "sai",
 		"definitions": [
 			{
-				"partOfSpeech": "adjective",
-				"meaning": "a myriad in number, a multitude in number; common, pervasive"
-			},
-			{
-				"partOfSpeech": "verb",
-				"meaning": "inundate, overwhelm"
+				"partOfSpeech": "noun",
+				"meaning": "thing (action, concept, object, property)"
 			}
 		],
 		"source": {
 			"creator": "kose Powa",
-			"language": "Gujarati",
-			"word": "અગણિત",
-			"transliteration": "agaṇit",
-			"definition": "innumerable, countless, immeasurable"
+			"language": "Arabic",
+			"word": "شَيْء",
+			"transliteration": "šayʾ",
+			"definition": "thing"
 		}
 	}
 	// kata akane...
@@ -54,6 +52,7 @@ type Data = Word[];
 
 interface Word {
 	word: string;
+	wordi: string;
 
 	definitions: Definition[];
 	source: Source;
