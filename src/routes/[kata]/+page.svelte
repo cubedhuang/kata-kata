@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { page } from '$app/stores';
 	import WordDetails from '$lib/components/WordDetails.svelte';
 	import type { PageData } from './$types';
 
@@ -12,10 +13,10 @@
 </script>
 
 <svelte:head>
-	<title>{word.word}</title>
+	<title>{$page.params.kata}</title>
 	<meta name="description" content={meanings} />
 
-	<meta property="og:title" content={word.word} />
+	<meta property="og:title" content={$page.params.kata} />
 	<meta property="og:description" content={meanings} />
 </svelte:head>
 
@@ -23,6 +24,6 @@
 	<a href="/" class="inline-block px-2 py-1 clickable">eta</a>
 </p>
 
-<h1 class="mt-8 font-bold text-4xl">{word.word}</h1>
+<h1 class="mt-8 font-bold text-4xl">{$page.params.kata}</h1>
 
 <WordDetails {word} detailed />

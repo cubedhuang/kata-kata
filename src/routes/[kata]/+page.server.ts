@@ -9,7 +9,9 @@ export const load = (async ({ fetch, params, setHeaders }) => {
 	});
 
 	const words = await getWords(fetch);
-	const word = words.find(word => word.word === params.kata);
+	const word = words.find(
+		word => word.word === params.kata || word.wordi === params.kata
+	);
 
 	if (!word) throw error(404, 'Word not found');
 
