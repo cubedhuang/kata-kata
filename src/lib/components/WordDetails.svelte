@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Word } from '$lib/types';
+	import type { Word } from '$lib/util';
 
 	export let word: Word;
 	export let detailed = false;

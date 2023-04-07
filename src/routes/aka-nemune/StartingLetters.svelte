@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Word } from '$lib/types';
+	import type { Word } from '$lib/util';
 
 	import Separator from '$lib/components/Separator.svelte';
 	import Table from './Table.svelte';

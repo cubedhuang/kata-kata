@@ -1,7 +1,7 @@
 import { json, type RequestHandler } from '@sveltejs/kit';
 import parser from 'papaparse';
 
-import type { Definition, Source, Word } from '$lib/types';
+import type { Definition, Source, Word } from '$lib/util';
 
 const SHEET =
 	'https://docs.google.com/spreadsheets/d/e/2PACX-1vR-xdwfzK86O86JlDqrKUNWZCUuMq5fdu5os7EB79VfY9NiTY6Q5_a_uaJ07YIOFeaulTmYfhz77Nnt/pub?gid=316018093&single=true&output=csv';

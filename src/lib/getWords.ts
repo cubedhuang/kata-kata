@@ -1,4 +1,4 @@
-import type { Word } from './types';
+import type { Word } from './util';
 
 export function getWords(
 	fetch: (

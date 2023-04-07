@@ -1,11 +1,12 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
 
-	import type { Word } from '$lib/types';
 	import type { PageData } from './$types';
 
+	import { WordForm, form, getDisplayWord } from '$lib/stores';
+	import { type Word, wordForms } from '$lib/util';
+
 	import WordDetails from '$lib/components/WordDetails.svelte';
-	import { getDisplayWord, ji } from '$lib/stores';
 
 	export let data: PageData;
 
@@ -37,10 +38,7 @@
 
 		switch (searchMode) {
 			case SearchMode.Word:
-				return (
-					fix(word.word).includes(fixedSearch) ||
-					fix(word.wordi).includes(fixedSearch)
-				);
+				return wordForms(word).some(w => w.includes(fixedSearch));
 			case SearchMode.Meaning:
 				return fix(word.definitions.map(d => d.meaning).join('; ')).includes(
 					fixedSearch
@@ -75,12 +73,20 @@
 		</select>
 
 		<button class="px-2 py-1 clickable" on:click={() => (detailed = !detailed)}>
-			{detailed ? 'wi ka' : 'wisala ka'}
+			{detailed
+				? $form === WordForm.Via
+					? 'visala'
+					: 'wisala'
+				: $form === WordForm.Via
+				? 'vi'
+				: 'wi'}
 		</button>
 
-		<button class="px-2 py-1 clickable" on:click={() => ($ji = !$ji)}>
-			{$ji ? 'ji form' : 'i form'}
-		</button>
+		<select class="px-2 py-1 interactable cursor-pointer" bind:value={$form}>
+			<option value={WordForm.Wija}>asera Wija</option>
+			<option value={WordForm.Wia}>asera Wia</option>
+			<option value={WordForm.Via}>asera Via</option>
+		</select>
 	</div>
 
 	<div class="flex flex-wrap gap-2">

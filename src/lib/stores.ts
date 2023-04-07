@@ -1,12 +1,22 @@
 import { derived, writable } from 'svelte/store';
 
-import type { Word } from './types';
+import type { Word } from './util';
 
-export const ji = writable(true);
+export enum WordForm {
+	Wija,
+	Wia,
+	Via
+}
+
+export const form = writable<WordForm>(WordForm.Wija);
 
 export const getDisplayWord = derived(
-	[ji],
-	([$ji]) =>
+	[form],
+	([$form]) =>
 		(word: Word) =>
-			$ji ? word.word : word.wordi
+			$form === WordForm.Wija
+				? word.word
+				: $form === WordForm.Wia
+				? word.wordi
+				: word.wordi.replaceAll('w', 'v')
 );
