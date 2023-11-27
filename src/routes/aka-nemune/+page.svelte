@@ -1,13 +1,11 @@
 <script lang="ts">
-	import type { PageData } from './$types';
-
 	import Creators from './Creators.svelte';
 	import Languages from './Languages.svelte';
 	import PartsOfSpeech from './PartsOfSpeech.svelte';
 	import StartingLetters from './StartingLetters.svelte';
 	import Syllables from './Syllables.svelte';
 
-	export let data: PageData;
+	export let data;
 </script>
 
 <svelte:head>

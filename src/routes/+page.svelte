@@ -1,56 +1,67 @@
 <script lang="ts">
+	import { distance } from 'fastest-levenshtein';
 	import { fly } from 'svelte/transition';
-
-	import type { PageData } from './$types';
 
 	import { WordForm, form, getDisplayWord } from '$lib/stores';
 	import { type Word, wordForms } from '$lib/util';
 
 	import WordDetails from '$lib/components/WordDetails.svelte';
 
-	export let data: PageData;
+	export let data;
 
-	function fix(text: string) {
-		return text
-			.toLowerCase()
-			.trim()
-			.normalize('NFD')
-			.replace(/[\u0300-\u036f]/g, '');
-	}
-
-	enum SearchMode {
-		Word = 'kata',
-		Meaning = 'definition',
-		PartOfSpeech = 'part of speech',
-		Language = 'language'
-	}
+	let detailed = false;
 
 	$: words = data.words;
 
-	let searchMode = SearchMode.Word;
+	const normalize = (str: string) =>
+		str
+			.normalize('NFD')
+			.replace(/[\u0300-\u036f]/g, '')
+			.toLowerCase()
+			.trim();
+
 	let search = '';
-	let detailed = false;
+	$: fixedSearch = normalize(search);
 
-	$: fixedSearch = fix(search);
+	$: scoreMatch = (str: string | undefined) => {
+		if (!str) return 0;
 
-	$: filteredWords = words.filter(word => {
-		if (search === '') return true;
+		const normalized = normalize(str);
 
-		switch (searchMode) {
-			case SearchMode.Word:
-				return wordForms(word).some(w => w.includes(fixedSearch));
-			case SearchMode.Meaning:
-				return fix(word.definitions.map(d => d.meaning).join('; ')).includes(
-					fixedSearch
-				);
-			case SearchMode.PartOfSpeech:
-				return fix(
-					word.definitions.map(d => d.partOfSpeech).join(' ')
-				).includes(fixedSearch);
-			case SearchMode.Language:
-				return fix(word.source.language).includes(fixedSearch);
+		const includes = normalized.includes(fixedSearch);
+
+		if (includes) {
+			return str === fixedSearch ? 10 : 1;
 		}
-	});
+
+		const distanceScore =
+			distance(normalized, fixedSearch) / (normalized.length + 1);
+
+		if (distanceScore > 0.5) return 0;
+
+		return 1 - distanceScore;
+	};
+
+	$: scoreWord = (word: Word) => {
+		return (
+			wordForms(word).reduce((acc, form) => acc + scoreMatch(form), 0) * 100 +
+			word.definitions.reduce((acc, def) => acc + scoreMatch(def.meaning), 0) *
+				50 +
+			scoreMatch(word.source.definition) * 20 +
+			scoreMatch(word.source.word) * 20 +
+			scoreMatch(word.source.transliteration) * 20 +
+			scoreMatch(word.source.language) * 20 +
+			scoreMatch(word.source.creator) * 20
+		);
+	};
+
+	$: filteredWords = !fixedSearch
+		? words
+		: words
+				.map(word => [word, scoreWord(word)] as [Word, number])
+				.filter(([_, score]) => score > 19)
+				.sort(([, a], [, b]) => b - a)
+				.map(([word]) => word);
 
 	let selectedWord: Word | null = null;
 </script>
@@ -63,15 +74,6 @@
 
 <div class="mt-4 flex flex-wrap justify-between gap-x-4 gap-y-1">
 	<div class="flex flex-wrap gap-2">
-		<select
-			bind:value={searchMode}
-			class="px-2 py-1 interactable cursor-pointer"
-		>
-			{#each Object.values(SearchMode) as mode}
-				<option value={mode}>{mode}</option>
-			{/each}
-		</select>
-
 		<button class="px-2 py-1 clickable" on:click={() => (detailed = !detailed)}>
 			{detailed
 				? $form === WordForm.Via
@@ -126,7 +128,7 @@
 <p class="mt-1">
 	<input
 		type="text"
-		placeholder="{searchMode}..."
+		placeholder="search..."
 		bind:value={search}
 		class="w-96 max-w-full px-3 py-2 interactable"
 	/>

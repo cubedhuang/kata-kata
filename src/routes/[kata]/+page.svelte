@@ -1,9 +1,8 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import WordDetails from '$lib/components/WordDetails.svelte';
-	import type { PageData } from './$types';
 
-	export let data: PageData;
+	export let data;
 
 	$: word = data.word;
 

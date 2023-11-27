@@ -13,26 +13,27 @@
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^1.0.3",
-		"@sveltejs/kit": "^1.5.6",
-		"@types/papaparse": "^5.3.7",
-		"@typescript-eslint/eslint-plugin": "^5.51.0",
-		"@typescript-eslint/parser": "^5.51.0",
-		"autoprefixer": "^10.4.13",
-		"eslint": "^8.34.0",
-		"eslint-config-prettier": "^8.6.0",
+		"@sveltejs/kit": "^1.27.6",
+		"@types/papaparse": "^5.3.13",
+		"@typescript-eslint/eslint-plugin": "^5.62.0",
+		"@typescript-eslint/parser": "^5.62.0",
+		"autoprefixer": "^10.4.16",
+		"eslint": "^8.54.0",
+		"eslint-config-prettier": "^8.10.0",
 		"eslint-plugin-svelte3": "^4.0.0",
-		"postcss": "^8.4.21",
-		"prettier": "^2.8.4",
-		"prettier-plugin-svelte": "^2.9.0",
-		"svelte": "^3.55.1",
+		"postcss": "^8.4.31",
+		"prettier": "^2.8.8",
+		"prettier-plugin-svelte": "^2.10.1",
+		"svelte": "^3.59.2",
 		"svelte-check": "^2.10.3",
-		"tailwindcss": "^3.2.6",
-		"tslib": "^2.5.0",
+		"tailwindcss": "^3.3.5",
+		"tslib": "^2.6.2",
 		"typescript": "^4.9.5",
-		"vite": "^4.1.1"
+		"vite": "^4.5.0"
 	},
 	"type": "module",
 	"dependencies": {
-		"papaparse": "^5.3.2"
+		"fastest-levenshtein": "^1.0.16",
+		"papaparse": "^5.4.1"
 	}
 }
